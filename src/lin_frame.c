@@ -15,3 +15,28 @@ uint8_t lin_compute_pid(uint8_t id)
     uint8_t pid = (parityBit1 << 7) | (parityBit0 << 6) | id;
     return pid;
 }
+
+uint8_t lin_compute_checksum(const lin_frame_t *frame, bool enhanced)
+{
+    uint16_t tmp;
+
+    if (0 == enhanced)
+    {
+        tmp = 0;
+    }
+    else
+    {
+        tmp = frame->pid;
+    }
+
+    for (int i = 0; i < frame->dataLen; i++)
+    {
+        tmp += frame->data[i];
+        if (tmp >= 256)
+        {
+            tmp -= 256;
+        }
+    }
+
+    return 0xFF - tmp;
+}
