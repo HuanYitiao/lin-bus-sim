@@ -1,7 +1,12 @@
 #include "lin_frame.h"
 
-uint8_t lin_compute_pid(uint8_t id)
+int16_t lin_compute_pid(uint8_t id)
 {
+    if (63 < id)
+    {
+        return -1;
+    }
+
     uint8_t bit0 = id & 1;
     uint8_t bit1 = (id >> 1) & 1;
     uint8_t bit2 = (id >> 2) & 1;
