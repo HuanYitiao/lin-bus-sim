@@ -16,6 +16,6 @@ typedef struct
 } lin_frame_t;
 
 int16_t lin_compute_pid(uint8_t id);
-uint8_t lin_compute_checksum(const lin_frame_t *frame, bool enhanced);
+int16_t lin_compute_checksum(const lin_frame_t *frame, bool enhanced);
 
 #endif /*LIN_FRAME_H*/

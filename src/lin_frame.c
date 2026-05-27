@@ -21,8 +21,18 @@ int16_t lin_compute_pid(uint8_t id)
     return pid;
 }
 
-uint8_t lin_compute_checksum(const lin_frame_t *frame, bool enhanced)
+int16_t lin_compute_checksum(const lin_frame_t *frame, bool enhanced)
 {
+    if (!frame)
+    {
+        return -1;
+    }
+
+    if (8 < frame->dataLen)
+    {
+        return -1;
+    }
+
     uint16_t tmp;
 
     if (0 == enhanced)

@@ -52,6 +52,23 @@ void test_checksum3(void)
     TEST_ASSERT_EQUAL(0x6A, lin_compute_checksum(&lin_frame, 1));
 }
 
+void test_checksum_empty(void)
+{
+    TEST_ASSERT_EQUAL(-1, lin_compute_checksum(NULL, 1));
+}
+
+void test_checksum_length(void)
+{
+    lin_frame_t lin_frame;
+    lin_frame.dataLen = 9;
+    TEST_ASSERT_EQUAL(-1, lin_compute_checksum(&lin_frame, 0));
+}
+
+void test_pid_id(void)
+{
+    TEST_ASSERT_EQUAL(-1, lin_compute_pid(64));
+}
+
 int main(void)
 {
     UNITY_BEGIN();
@@ -61,5 +78,8 @@ int main(void)
     RUN_TEST(test_checksum1);
     RUN_TEST(test_checksum2);
     RUN_TEST(test_checksum3);
+    RUN_TEST(test_checksum_empty);
+    RUN_TEST(test_checksum_length);
+    RUN_TEST(test_pid_id);
     return UNITY_END();
 }
